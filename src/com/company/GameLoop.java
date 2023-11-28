@@ -1,10 +1,8 @@
 package com.company;
 
-import com.company.gameObject.Color;
-import com.company.gameObject.GameObject;
-import com.company.model.Direction;
-import com.company.model.Player;
-import com.company.model.Verb;
+import com.company.gameObject.Item;
+import com.company.gameObject.Potion;
+import com.company.model.*;
 import com.company.world.World;
 import com.company.world.WorldBuilder;
 
@@ -31,6 +29,7 @@ public class GameLoop {
             if(pc.hp < 1){ System.exit(0); }
             Input in = Input.get(input.nextLine());
 
+            //move
             if(in.verb == Verb.go && in.direction != null){
                 int tx = Direction.adjustX(pc.x, in.direction);
                 int ty = Direction.adjustY(pc.y, in.direction);
@@ -48,6 +47,36 @@ public class GameLoop {
                 ww = WorldBuilder.create(ww.level + 1, pc.x, pc.y);
                 pc.enterTile(ww);
             }
+
+            // look
+            if(in.verb == Verb.look){
+                if(in.gameObject == GameObject.bag){
+                    if(pc.items.size() == 0){
+                        pc.messages.add("You aren't carrying any items.");
+                    } else {
+                        pc.messages.add("You are carrying:");
+                        int num = 0;
+                        for (Item i : pc.items){
+                            pc.messages.add(num + "] " + i.getName());
+                            num ++;
+                        }
+                    }
+                }
+            }
+
+
+            // use
+            if(in.verb == Verb.use){
+                if(in.item != -1){
+                    try {
+                        Item i = pc.items.get(in.item);
+                        i.use(ww, pc, pc.x, pc.y);
+                    } catch (Exception e){
+                        pc.messages.add("No item in slot " + in.item);
+                    }
+                }
+            }
+
         }
 
 

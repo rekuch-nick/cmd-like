@@ -1,11 +1,4 @@
-package com.company;
-
-import com.company.gameObject.GameObject;
-import com.company.gameObject.Parse;
-import com.company.model.Direction;
-import com.company.model.Verb;
-
-import java.util.Locale;
+package com.company.model;
 
 public class Input {
 
@@ -13,12 +6,14 @@ public class Input {
     public Verb verb;
     public Direction direction;
     public GameObject gameObject;
+    public int item;
 
-    public Input(String[] s, Verb v, Direction d, GameObject o){
+    public Input(String[] s, Verb v, Direction d, GameObject o, int i){
         words = s;
         verb = v;
         direction = d;
         gameObject = o;
+        item = i;
     }
 
     public static Input get(String s){
@@ -41,6 +36,12 @@ public class Input {
             if(o == GameObject.door){ v = Verb.go; }
         }
 
-        return new Input(ss, v, dir, o);
+        int item = -1;
+        for(String str : ss){
+            int itm = Parse.carriedItem(str);
+            if(itm != -1){ item = itm; }
+        }
+
+        return new Input(ss, v, dir, o, item);
     }
 }

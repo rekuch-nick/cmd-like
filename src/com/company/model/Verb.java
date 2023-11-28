@@ -1,5 +1,5 @@
 package com.company.model;
 
 public enum Verb {
-    go, rest, enter;
+    go, rest, enter, look, use;
 }

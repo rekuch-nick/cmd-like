@@ -1,7 +1,4 @@
-package com.company.gameObject;
-
-import com.company.model.Direction;
-import com.company.model.Verb;
+package com.company.model;
 
 public class Parse {
 
@@ -10,6 +7,8 @@ public class Parse {
             case "go", "walk", "w", "a", "s", "d" -> Verb.go;
             case "rest", "wait", "sleep", "sit" -> Verb.rest;
             case "enter", "open" -> Verb.enter;
+            case "look", "inspect", "check", "i" -> Verb.look;
+            case "use", "drink", "wear", "equip", "wield" -> Verb.use;
             default -> null;
         };
     }
@@ -17,6 +16,8 @@ public class Parse {
     public static GameObject gameObject(String s){
         return switch(s){
             case "in", "door", "entrance", "portal", "hole", "inside", "into" -> GameObject.door;
+            case "player", "self", "me", "character", "hero" -> GameObject.self;
+            case "bag", "stuff", "items", "equipment", "treasure", "i" -> GameObject.bag;
             default -> null;
         };
     }
@@ -32,5 +33,12 @@ public class Parse {
         };
     }
 
+    public static int carriedItem(String s){
+        try{
+            return Integer.parseInt(s);
+        } catch (Exception e) {
+            return -1;
+        }
+    }
 
 }

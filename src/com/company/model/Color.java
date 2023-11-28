@@ -1,4 +1,4 @@
-package com.company.gameObject;
+package com.company.model;
 
 public class Color {
 

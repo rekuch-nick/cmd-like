@@ -8,11 +8,12 @@ public class Zone {
     public Boolean visible;
     public Tile[][] tiles;
     public Boolean isExit, excludeFromGeneration;
+    public Item item;
 
 
     public Zone(int a, int b){
         x = a; y = b;
-        visible = true; // should be false
+        visible = false; // should be false
         tiles = new Tile[W][H];
         for(int x=0; x<W; x++){ for(int y=0; y<H; y++){
             tiles[x][y] = Tile.block(x, y);

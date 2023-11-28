@@ -1,6 +1,7 @@
-package com.company;
+package com.company.model;
 
-import com.company.gameObject.Color;
+import com.company.gameObject.Item;
+import com.company.model.Color;
 import com.company.gameObject.Creature;
 import com.company.gameObject.Tile;
 import com.company.gameObject.Zone;
@@ -34,6 +35,12 @@ public class Writer {
                         Tile t = ww.zones[x][y].tiles[a][b];
                         char image = t.image;
                         String color = t.color;
+
+                        Item i = ww.zones[x][y].item;
+                        if(i != null && a == 2 && b == 1){
+                            color = ww.zones[x][y].item.color;
+                            image = ww.zones[x][y].item.image;
+                        }
 
                         Creature c = ww.getCreature(x, y);
                         if(c != null && b == 1){

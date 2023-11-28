@@ -1,9 +1,8 @@
 package com.company.model;
 
-import com.company.gameObject.Color;
 import com.company.gameObject.Creature;
+import com.company.gameObject.Item;
 import com.company.gameObject.Tile;
-import com.company.gameObject.Zone;
 import com.company.world.World;
 
 import java.util.ArrayList;
@@ -16,6 +15,7 @@ public class Player {
     public String color;
     public List<String> messages;
     public int hp, hpMax, coins, keys;
+    public List<Item> items;
 
     public Player(int a, int b){
         x = a; y = b;
@@ -24,6 +24,7 @@ public class Player {
         messages = new ArrayList<>();
         hp = 100; hpMax = 100;
         coins = 0; keys = 0;
+        items = new ArrayList<>();
     }
 
     public void enterTile(World ww){
@@ -70,6 +71,11 @@ public class Player {
         }}
         if(coinsCollected > 0){
             messages.add("You pick up " + coinsCollected + " coins.");
+        }
+        if(ww.zones[x][y].item != null){
+            items.add(ww.zones[x][y].item);
+            messages.add("You pick up the " + ww.zones[x][y].item.getName() + ".");
+            ww.zones[x][y].item = null;
         }
 
 

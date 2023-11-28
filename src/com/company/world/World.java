@@ -61,6 +61,19 @@ public class World {
         return null;
     }
 
+    public List<Creature> getCreaturesAround(int x, int y){
+        List<Creature> cs = new ArrayList<>();
+        for(Creature c : creatures){
+            int dis = World.manhattanDistance(x, y, c.x, c.y);
+            if(dis <= 1){
+                if(World.areConnected(zones[x][y], zones[c.x][c.y])){
+                    cs.add(c);
+                }
+            }
+        }
+        return cs;
+    }
+
     public static int manhattanDistance(int x1, int y1, int x2, int y2){
         return Math.abs(x1 - x2) + Math.abs(y1 - y2);
     }

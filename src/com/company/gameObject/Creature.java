@@ -1,5 +1,6 @@
 package com.company.gameObject;
 
+import com.company.model.Color;
 import com.company.world.World;
 
 public class Creature {

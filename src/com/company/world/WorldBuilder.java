@@ -1,6 +1,7 @@
 package com.company.world;
 
-import com.company.gameObject.Color;
+import com.company.gameObject.Item;
+import com.company.model.Color;
 import com.company.gameObject.Creature;
 import com.company.gameObject.Tile;
 import com.company.gameObject.Zone;
@@ -160,15 +161,21 @@ public class WorldBuilder {
         for(int x=0; x<World.W; x++){ for(int y=0; y<World.H; y++){
             if(!ww.zones[x][y].tiles[2][1].isPassable){ continue; }
             if(x == px && y == py){ continue; }
-            if(World.d(100) < 30){
-                for(int a=1; a<4; a++){ for(int b=0; b<3; b++){
-                    if(World.d(100) < 80 && ww.zones[x][y].tiles[a][b].image == ' '){
-                        ww.zones[x][y].tiles[a][b] = Tile.coin(a, b);
-                        if(World.d(100) < ww.level + 30 ){
-                            ww.zones[x][y].tiles[a][b] = Tile.coin2(a, b);
-                        }
-                    }
-                }}
+            if(ww.zones[x][y].tiles[2][1].image == ' ' && ww.zones[x][y].item == null) {
+                int r = World.d(100);
+                if (r < 10) { ww.zones[x][y].item = Item.potion(); }
+                else if (r < 30) { goldPile(ww, x, y); }
+            }
+        }}
+    }
+
+    private static void goldPile(World ww, int x, int y){
+        for (int a = 1; a < 4; a++) { for (int b = 0; b < 3; b++) {
+            if (World.d(100) < 80 && ww.zones[x][y].tiles[a][b].image == ' ') {
+                ww.zones[x][y].tiles[a][b] = Tile.coin(a, b);
+                if (World.d(100) < ww.level * 2) {
+                    ww.zones[x][y].tiles[a][b] = Tile.coin2(a, b);
+                }
             }
         }}
     }
