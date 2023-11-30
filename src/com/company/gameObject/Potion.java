@@ -22,7 +22,7 @@ public class Potion {
     public static void use(int kind, World ww, Player pc, int x, int y){
         if(kind == 0){
             if(pc.hp < pc.hpMax){
-                int healFor = Math.min(pc.hpMax / 15, pc.hpMax - pc.hp);
+                int healFor = Math.min( (int)(pc.hpMax * .15), pc.hpMax - pc.hp);
                 pc.hp += healFor;
                 pc.messages.add("You heal for " + healFor + " points.");
             } else {

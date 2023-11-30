@@ -1,21 +1,32 @@
 package com.company.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public enum Direction {
-    up, right, down, left;
+    up(0), right(1), down(2), left(3);
+
+    public final int value;
+    public static final Map<Integer, Direction> BY_VALUE = new HashMap<>();
+
+    static {
+        for(Direction d : values()){
+            BY_VALUE.put(d.value, d);
+        }
+    }
+
+    Direction(int i){
+        value = i;
+    }
 
     public static Direction get(int d){
-        if(d == 0){ return Direction.up; }
-        if(d == 1){ return Direction.right; }
-        if(d == 2){ return Direction.down; }
-        if(d == 3){ return Direction.left; }
-        return null;
+        return BY_VALUE.get(d);
     }
 
     public static int get(Direction d){
-        if(d == Direction.up){ return 0; }
-        if(d == Direction.right){ return 1; }
-        if(d == Direction.down){ return 2; }
-        if(d == Direction.left){ return 3; }
+        for(Direction dir : values()){
+            if(d == dir){ return dir.value; }
+        }
         return -1;
     }
 
